@@ -39,4 +39,27 @@ final class NGGVideo {
     }
     return self::$instance;
   }
+  
+  /**
+   * Load scripts into wordpress pages
+   */     
+  public nggvideo_wp_enqueue_scripts() {
+  
+  }
+  
+  /**
+   * Add settings to option page in admin panel
+   */     
+  public nggvideo_add_option_menu() {
+    add_options_page( 'NGG Video Options', 'NGG Video',
+			'manage_options', 'NGG Video Options',
+			array($this, 'nggvideo_option_interface'));
+  }
+  
+  /**
+   * includes the admin page
+   */
+  public nggvideo_option_interface() {
+    include(plugin_dir_path(__FILE__).'/admin/ngg_video_admin_page.php');
+  }     
 }
