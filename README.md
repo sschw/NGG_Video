@@ -4,7 +4,7 @@ The NGG is a great tool for showing images but if someone wants to show images a
 ## How to use
 - Install the plugin as every other plugin in wordpress. 
 - After the installation you will find the page "NGG Video" under the "Settings" in the admin panel.
-- There you can select a wordpress gallery and click on Select.
+- There you can select a NextGen Gallery and click on "Select".
 - Now you can define a video url for every image.
 - Click on Save.
 - Go to the location where you want your video gallery.

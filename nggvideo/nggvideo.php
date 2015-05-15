@@ -43,7 +43,7 @@ final class NGGVideo {
   /**
    * Initialize the plugin - register everything
    */
-	public function __construct() {
+  public function __construct() {
     $this->nggvideo_register();
   }
   
@@ -52,18 +52,28 @@ final class NGGVideo {
    */
   public function nggvideo_register() {
     add_action('admin_menu',array(&$this, 'nggvideo_add_option_menu'));
-		add_filter('ngg_render_template', array(&$this, 'nggvideo_add_template'), 10, 2);
-	}
+    add_filter('ngg_render_template', array(&$this, 'nggvideo_add_template'), 10, 2);
+  }
+
+  public static function nggvideo_activate() {
+    global $wpdb;
+    $wpdb->query("ALTER TABLE ".$wpdb->prefix."ngg_pictures ADD COLUMN videourl VARCHAR(255) ");
+  }
+
+  public static function nggvideo_deactivate() {
+    global $wpdb;
+    $wpdb->query("ALTER TABLE ".$wpdb->prefix."ngg_pictures DROP videourl ");
+  }
 
   /**
    * Register template
    */
-	function nggvideo_add_template( $path, $template_name = false) {
-		if ($template_name == 'nggvideo')
-			$path = WP_PLUGIN_DIR . '/' . plugin_basename( dirname(__FILE__) ) . '/templates/gallery-nggvideo-template.php';
-			
-		return $path;
-	}
+  function nggvideo_add_template( $path, $template_name = false) {
+    if ($template_name == 'nggvideo')
+      $path = WP_PLUGIN_DIR . '/' . plugin_basename( dirname(__FILE__) ) . '/templates/gallery-nggvideo-template.php';
+
+    return $path;
+  }
   
   /**
    * Load scripts into wordpress pages
@@ -77,8 +87,8 @@ final class NGGVideo {
    */     
   public function nggvideo_add_option_menu() {
     add_options_page( 'NGG Video Options', 'NGG Video',
-			'manage_options', 'NGG_Video_Options',
-			array($this, 'nggvideo_option_interface'));
+      'manage_options', 'NGG_Video_Options',
+      array($this, 'nggvideo_option_interface'));
   }
   
   /**
@@ -88,6 +98,8 @@ final class NGGVideo {
     include(plugin_dir_path(__FILE__).'admin/nggvideo_admin_page.php');
   }
 }
+register_activation_hook(__FILE__, array('nggvideo', 'nggvideo_activate'));
+register_uninstall_hook(__FILE__, array('nggvideo', 'nggvideo_deactivate'));
 
 NGGVideo::get();
 }
