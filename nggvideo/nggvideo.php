@@ -53,6 +53,8 @@ final class NGGVideo {
   public function nggvideo_register() {
     add_action('admin_menu',array(&$this, 'nggvideo_add_option_menu'));
     add_filter('ngg_render_template', array(&$this, 'nggvideo_add_template'), 10, 2);
+    if (!is_admin())
+      add_action('wp_enqueue_scripts', array(&$this, 'nggvideo_wp_enqueue_scripts'));
   }
 
   public static function nggvideo_activate() {
@@ -79,7 +81,8 @@ final class NGGVideo {
    * Load scripts into wordpress pages
    */     
   public function nggvideo_wp_enqueue_scripts() {
-  
+    $router = C_Router::get_instance();
+    wp_enqueue_script('nggvideo', plugins_url('/js/nggvideo.js', __FILE__ ),array('jquery'), null, true);
   }
   
   /**
