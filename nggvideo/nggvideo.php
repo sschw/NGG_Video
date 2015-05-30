@@ -6,7 +6,7 @@
  **************************
  * Plugin Name: NGG Video
  * Description: The NGG is a great tool for showing images but if someone wants to show images and videos he do not have a chance to make that. This extension should change that.
- * Version: 0.0.1
+ * Version: 1.0.0
  * Author: Sandro Schwager
  * Plugin URI: -
  * Author URI: -
