@@ -20,13 +20,17 @@ global $wp_embed;
 
 	<!-- Thumbnails -->
   <?php $i = 0; ?>
-	<?php foreach ( $images as $image ) : ?>
+	<?php foreach ( $images as $image ) :
+    $array = array();
+    if(preg_match("/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/", $image->videourl, $array))
+      $cleanVideoUrl = $array[0];
+  ?>
 	
 	<div id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
 		<div class="ngg-gallery-thumbnail nggvideo-thumbnail" >
 			<a href="<?php echo nextgen_esc_url($image->imageURL) ?>"
                title="<?php echo esc_attr($image->description) ?>"
-               <?php echo $image->thumbcode." data-video='".str_replace("'", "\"", do_shortcode($wp_embed->autoembed($image->videourl)))."' "; ?> >
+               <?php echo $image->thumbcode." data-videourl='". $cleanVideoUrl ."' data-video='".str_replace("'", "\"", do_shortcode($wp_embed->autoembed($image->videourl)))."' "; ?> >
 				<?php if ( !$image->hidden ) { ?>
 				<img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo nextgen_esc_url($image->thumbnailURL) ?>" <?php echo $image->size ?> />
 				<?php } ?>

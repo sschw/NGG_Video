@@ -58,10 +58,19 @@ if(isset($currentId)) {
   foreach($galleryPictures as $picture) {
     $storage = C_Gallery_Storage::get_instance();
     $dimension = $storage->get_image_dimensions($picture, "thumb");
+    $pWidth = $dimension['width'];
+    $pHeight = $dimension['height'];
+    if(!is_numeric($dimension['width'])) {
+      $pWidth = "120";
+    }
+
+    if(!is_numeric($dimension['height'])) {
+      $pHeight = "80";
+    }
     $noImg++;
 ?>
     <div style="margin: 20px 0 10px 0;">
-      <div style="margin-right: 20px; width: <?php echo $dimension['width'];?>px; height: <?php echo $dimension['height'];?>px; overflow: hidden; display: inline-block; vertical-align: middle; background: url(<?php echo $storage->get_image_url($picture, "thumb", false, true); ?>)">
+      <div style="margin-right: 20px; width: <?php echo $pWidth;?>px; height: <?php echo $pHeight;?>px; overflow: hidden; display: inline-block; vertical-align: middle; background: url(<?php echo $storage->get_image_url($picture, "thumb", false, true); ?>)">
         <div style="padding: 0 2px; color: black; background-color: white; opacity: 0.7"><?php echo $picture->filename . ":"; ?></div>
       </div>
       <div style="min-width: 300px; width: 70%; display: inline-block;">
