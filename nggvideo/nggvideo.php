@@ -6,7 +6,7 @@
  **************************
  * Plugin Name: NGG Video
  * Description: The NGG is a great tool for showing images but if someone wants to show images and videos he do not have a chance to make that. This extension should change that.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Sandro Schwager
  * Plugin URI: -
  * Author URI: -
@@ -89,9 +89,7 @@ final class NGGVideo {
    * Add settings to option page in admin panel
    */     
   public function nggvideo_add_option_menu() {
-    add_options_page( 'NGG Video Options', 'NGG Video',
-      'manage_options', 'NGG_Video_Options',
-      array($this, 'nggvideo_option_interface'));
+    add_submenu_page('nextgen-gallery', "NGG Video Options", "Video Gallery Settings", 'manage_options', 'NGG_Video_Options', array(&$this, 'nggvideo_option_interface'));
   }
   
   /**
