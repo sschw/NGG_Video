@@ -51,7 +51,7 @@ final class NGGVideo {
    * Register actions
    */
   public function nggvideo_register() {
-    add_action('admin_menu',array(&$this, 'nggvideo_add_option_menu'));
+    add_action('admin_menu',array(&$this, 'nggvideo_add_option_menu'), 1000000000);
     add_filter('ngg_render_template', array(&$this, 'nggvideo_add_template'), 10, 2);
     if (!is_admin())
       add_action('wp_enqueue_scripts', array(&$this, 'nggvideo_wp_enqueue_scripts'));
